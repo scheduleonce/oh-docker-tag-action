@@ -14,9 +14,12 @@ const child_process_1 = require("child_process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
+            let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
             let environment = getEnvironment(process.env.GITHUB_BASE_REF);
             let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
+            if (!pullId) {
+                pullId = core_1.getInput('pullId');
+            }
             core_1.setOutput('pullId', pullId);
             let dockerServer = yield loginDocker();
             let imageName = `${dockerServer}/kubernetes/${repoName}:${environment}`;
@@ -42,6 +45,9 @@ function getEnvironment(branchName) {
             targetEnv = targetEnv.split('/').join('-');
             break;
         }
+    }
+    if (!targetEnv) {
+        return core_1.getInput('imageTag');
     }
     return targetEnv;
 }

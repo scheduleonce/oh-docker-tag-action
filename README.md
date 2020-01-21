@@ -12,14 +12,18 @@
   dockerServer: ${{ Your Docker Login Server }}
   username: ${{ Docker Username }}
   password: ${{ Docker Password }}
+  imageTag: tag name for the docker image (optional)
+  pullId: pull Id to be used as a tag name for docker image (optional)
   tagMap: |
-    pattern in branch name to be replaced~>string it is replaced with when tagging 
+    pattern in branch name to be replaced~>string it is replaced with when tagging (optional)
     test/~>dev
 ```
 - dockerServer: Your docker server url
 - username: Your docker Username
 - password: Your docker password
 - tagMap: Mapping to be used for creating image tags
+- imageTag: Tag to be used for creating image tags ( Creates a image with the exact tag without replacement )
+- pullId: Pull Id to be used for creating image tags ( Creates a image with the exact pull Id without replacement )
   Example:
   ```
   tagMap: |

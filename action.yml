@@ -10,6 +10,10 @@ inputs:
     description: 'Your docker password'
   tagMap:
     description: 'Mapping to be used for creating image tags'
+  imageTag:
+    description: 'Tag to be used for creating image tags (optional)'
+  pullId:
+    description: 'Pull Id to be used for creating image tags (optional)'
 outputs:
   environmentName: # id of the output
     description: 'Current Environment Name'

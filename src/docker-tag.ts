@@ -2,9 +2,12 @@ import { setOutput, getInput, setFailed } from '@actions/core';
 import { execSync, exec } from 'child_process';
 export async function run() {
   try {
-    const pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
+    let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
     let environment = getEnvironment(process.env.GITHUB_BASE_REF);
     let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
+    if (!pullId) {
+      pullId = getInput('pullId');
+    }
     setOutput('pullId', pullId);
     let dockerServer = await loginDocker();
     let imageName = `${dockerServer}/kubernetes/${repoName}:${environment}`;
@@ -28,6 +31,9 @@ function getEnvironment(branchName) {
       targetEnv = targetEnv.split('/').join('-');
       break;
     }
+  }
+  if (!targetEnv) {
+    return getInput('imageTag');
   }
   return targetEnv;
 }
