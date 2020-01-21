@@ -21,9 +21,9 @@
 - dockerServer: Your docker server url
 - username: Your docker Username
 - password: Your docker password
-- tagMap: Mapping to be used for creating image tags
 - imageTag: Tag to be used for creating image tags ( Creates a image with the exact tag without replacement )
 - pullId: Pull Id to be used for creating image tags ( Creates a image with the exact pull Id without replacement )
+- tagMap: Mapping to be used for creating image tags
   Example:
   ```
   tagMap: |
