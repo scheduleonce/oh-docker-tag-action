@@ -1,0 +1,20 @@
+name: 'oh-docker-tag-action'
+description: 'Action to change the docker tag on images from previous to latest and to add the current PR per environment'
+author: 'Divyadeep'
+inputs:
+  dockerServer:
+    description: 'Your docker server url'
+  username:
+    description: 'Your docker Username'
+  password:
+    description: 'Your docker password'
+  tagMap:
+    description: 'Mapping to be used for creating image tags'
+outputs:
+  environmentName: # id of the output
+    description: 'Current Environment Name'
+  pullId: # id of the output
+    description: 'Current Pull Request Id'
+runs:
+  using: 'node12'
+  main: 'dist/docker-tag.js'

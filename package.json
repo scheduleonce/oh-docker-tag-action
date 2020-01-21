@@ -1,0 +1,37 @@
+{
+  "name": "shared-action",
+  "version": "1.0.0",
+  "description": "Shared actions for better CI Jobs on github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node ./dist/src/index.js",
+    "test:tslint": "tslint -t checkstyle -o checkstyle_tslint.xml --project tsconfig.json",
+    "test:prettier": "prettier --single-quote --list-different \"src/**/*.{js,ts}\"",
+    "fix:tslint": "tslint --fix --project tsconfig.json",
+    "fix:prettier": "prettier --single-quote --write \"src/**/*.{js,ts}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divyadeep08/shared-action.git"
+  },
+  "author": "Divyadeep Bhatnagar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divyadeep08/shared-action/issues"
+  },
+  "homepage": "https://github.com/divyadeep08/shared-action#readme",
+  "devDependencies": {
+    "@angular/cli": "^8.3.21",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^2.0.0",
+    "child_process": "^1.0.2",
+    "tslint": "^5.20.1"
+  }
+}
