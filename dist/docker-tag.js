@@ -17,8 +17,8 @@ function run() {
             let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
             let environment = getEnvironment(process.env.GITHUB_BASE_REF);
             let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
-            if (!pullId) {
-                pullId = core_1.getInput('pullId');
+            if (core_1.getInput("pullId")) {
+                pullId = core_1.getInput("pullId");
             }
             core_1.setOutput('pullId', pullId);
             let dockerServer = yield loginDocker();

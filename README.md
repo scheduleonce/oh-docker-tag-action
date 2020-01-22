@@ -21,9 +21,9 @@
 - dockerServer: Your docker server url
 - username: Your docker Username
 - password: Your docker password
-- imageTag: Tag to be used for creating image tags ( Creates a image with the exact tag without replacement )
-- pullId: Pull Id to be used for creating image tags ( Creates a image with the exact pull Id without replacement )
-- tagMap: Mapping to be used for creating image tags
+- imageTag: Tag to be used for creating image tags ( Creates a image with the tag without replacement )
+- pullId: Pull Id to be used for creating image tags ( Creates a image with the pull Id without replacement )
+- tagMap: Mapping to be used for creating image tags with replacement
   Example:
   ```
   tagMap: |
@@ -36,6 +36,8 @@
     - lets say, branchName = **live/myProdBranch** -> Image tag will be **master-myProdBranch**
     - lets say, branchName = **special/myBranch** -> Image tag will be **myBranch**
 
+### Note:
+- Defining imageTag and pullId or tagMap is required.
 
 ### For Contributors 
 - Please follow and fully understand this link before making changes (https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action)

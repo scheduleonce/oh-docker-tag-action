@@ -5,7 +5,7 @@ export async function run() {
     let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
     let environment = getEnvironment(process.env.GITHUB_BASE_REF);
     let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
-    if (!pullId) {
+    if (getInput('pullId')) {
       pullId = getInput('pullId');
     }
     setOutput('pullId', pullId);
