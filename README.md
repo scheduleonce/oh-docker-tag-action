@@ -2,11 +2,13 @@
 
 ### This action is used to get the current pull id and environment to create docker images with PR, latest and previous tags per environment
 
-
 ## Usage:
+
 ```
 - name: oh-docker-tag-action
   uses: scheduleonce/oh-docker-tag-action@<current version>
+  env:
+    PR_NUMBER: ${{ github.event.pull_request.number }}
   id: <any unique id>
   with:
   dockerServer: ${{ Your Docker Login Server }}
@@ -18,6 +20,7 @@
     pattern in branch name to be replaced~>string it is replaced with when tagging (optional)
     test/~>dev
 ```
+
 - dockerServer: Your docker server url
 - username: Your docker Username
 - password: Your docker password
@@ -37,7 +40,9 @@
     - lets say, branchName = **special/myBranch** -> Image tag will be **myBranch**
 
 ### Note:
+
 - Defining imageTag and pullId or tagMap is required.
 
-### For Contributors 
+### For Contributors
+
 - Please follow and fully understand this link before making changes (https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action)
