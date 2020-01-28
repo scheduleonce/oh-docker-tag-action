@@ -14,11 +14,14 @@ const child_process_1 = require("child_process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
+            let pullId = process.env.PR_NUMBER;
             let environment = getEnvironment(process.env.GITHUB_BASE_REF);
             let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
-            if (core_1.getInput("pullId")) {
-                pullId = core_1.getInput("pullId");
+            if (core_1.getInput('pullId')) {
+                pullId = core_1.getInput('pullId');
+            }
+            else if (!pullId) {
+                core_1.setFailed('No Pull Id Found, Please Provide a Pull Id');
             }
             core_1.setOutput('pullId', pullId);
             let dockerServer = yield loginDocker();
@@ -46,8 +49,9 @@ function getEnvironment(branchName) {
             break;
         }
     }
+    targetEnv = targetEnv ? targetEnv : core_1.getInput('imageTag');
     if (!targetEnv) {
-        return core_1.getInput('imageTag');
+        core_1.setFailed('No Tag Found, Please Provide ImagTag or TagMap');
     }
     return targetEnv;
 }

@@ -2,11 +2,13 @@ import { setOutput, getInput, setFailed } from '@actions/core';
 import { execSync, exec } from 'child_process';
 export async function run() {
   try {
-    let pullId = process.env.GITHUB_REF.replace('refs/pull/', '').split('/')[0];
+    let pullId = process.env.PR_NUMBER;
     let environment = getEnvironment(process.env.GITHUB_BASE_REF);
     let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
     if (getInput('pullId')) {
       pullId = getInput('pullId');
+    } else if (!pullId) {
+      setFailed('No Pull Id Found, Please Provide a Pull Id');
     }
     setOutput('pullId', pullId);
     let dockerServer = await loginDocker();
@@ -32,8 +34,9 @@ function getEnvironment(branchName) {
       break;
     }
   }
+  targetEnv = targetEnv ? targetEnv : getInput('imageTag');
   if (!targetEnv) {
-    return getInput('imageTag');
+    setFailed('No Tag Found, Please Provide ImagTag or TagMap');
   }
   return targetEnv;
 }
