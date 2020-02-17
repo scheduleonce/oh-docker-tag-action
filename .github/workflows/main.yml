@@ -14,6 +14,9 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           commit: ${{ github.event.head_commit.message }}
           event: ${{ github.event }}
+        run: |
+          echo $commit
+          echo $event
         if: github.event.pull_request.merged == true
         id: test
         with:
