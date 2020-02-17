@@ -12,11 +12,6 @@ jobs:
         uses: scheduleonce/oh-docker-tag-action@1.0.3
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          commit: ${{ github.event.head_commit.message }}
-          event: ${{ github.event }}
-        run: |
-          echo $commit
-          echo $event
         if: github.event.pull_request.merged == true
         id: test
         with:
@@ -29,6 +24,9 @@ jobs:
             live~>master
             special/~>
       - name: PRINT
+        env:
+          commit: ${{ github.event.head_commit.message }}
+          event: ${{ github.event }}
         run: |
           echo $commit
           echo $event
