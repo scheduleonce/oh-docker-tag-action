@@ -10,9 +10,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: PRINT
         run: |
-        echo $ {{ github.event.head_commit.message }}
-        echo github.event.head_commit.message
-        echo github.event
+          echo $ {{ github.event.head_commit.message }}
+          echo github.event.head_commit.message
+          echo github.event
       - name: Docker Build And Push Image
         uses: scheduleonce/oh-docker-tag-action@1.0.3
         env:
