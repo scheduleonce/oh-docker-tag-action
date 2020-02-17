@@ -23,13 +23,6 @@ jobs:
             test~>dev
             live~>master
             special/~>
-      - name: PRINT
-        env:
-          commit: ${{ github.event.head_commit.message }}
-          event: ${{ github.event }}
-        run: |
-          echo $commit
-          echo $event
       - name: get commit message
         run: |
           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
