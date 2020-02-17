@@ -8,15 +8,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: PRINT
-        run: |
-          echo $ {{ github.event.head_commit.message }}
-          echo github.event.head_commit.message
-          echo github.event
       - name: Docker Build And Push Image
         uses: scheduleonce/oh-docker-tag-action@1.0.3
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          commit: ${{ github.event.head_commit.message }}
+          event: ${{ github.event }}
         if: github.event.pull_request.merged == true
         id: test
         with:
@@ -28,3 +25,7 @@ jobs:
             test~>dev
             live~>master
             special/~>
+      - name: PRINT
+        run: |
+          echo $commit
+          echo $event
