@@ -1,0 +1,30 @@
+name: oh-docker-tags-action
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: PRINT
+        run: |
+        echo $ {{ github.event.head_commit.message }}
+        echo github.event.head_commit.message
+        echo github.event
+      - name: Docker Build And Push Image
+        uses: scheduleonce/oh-docker-tag-action@1.0.3
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        if: github.event.pull_request.merged == true
+        id: test
+        with:
+          branchName: $ {{GITHUB_REF}}
+          dockerServer: dockerServer
+          username: username
+          password: password
+          tagMap: |
+            test~>dev
+            live~>master
+            special/~>
