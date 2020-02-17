@@ -29,8 +29,8 @@ jobs:
       - name: show commit message
         run: echo $commitmsg
       - name: test
-        if: "!contains(github.event.head_commit.message, 'test')"
+        if: contains(env.commitmsg, 'test')
         run: echo "Found Test"
       - name: Test pattern
-        if: startsWith(github.event.head_commit.message, 'test-[0-9]*')
+        if: startsWith(env.commitmsg, 'test-[0-9]*')
         run: echo "Found Test ID"
