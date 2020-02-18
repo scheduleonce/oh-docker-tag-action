@@ -18,6 +18,8 @@ jobs:
           dockerServer: dockerServer
           username: username
           password: password
+          pullId: 123
+          ImageTag: test
           commitMessagePattern: TEST-[0-9]+
           tagMap: |
             test~>dev
