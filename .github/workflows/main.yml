@@ -28,12 +28,9 @@ jobs:
           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
       - name: show commit message
         run: echo $commitmsg
-      - name: test
-        if: contains(env.commitmsg, 'test')
-        run: echo "Found Test"
       - name: Test pattern
         if: startsWith(env.commitmsg, 'test-[0-9]*')
         run: echo "Found Test ID"
       - name: match it
-        if: env.commitmsg == 'TEST-[0-9]+'
+        if: env.commitmsg ~= 'TEST-[0-9]+'
         run: echo "Found Test ID with regex"
