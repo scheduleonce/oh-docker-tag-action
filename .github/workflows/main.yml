@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Docker Build And Push Image
-        uses: scheduleonce/oh-docker-tag-action@1.0.3
+        uses: scheduleonce/oh-docker-tag-action@1.0.4
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         if: github.event.pull_request.merged == true
@@ -19,6 +19,7 @@ jobs:
           dockerServer: dockerServer
           username: username
           password: password
+          commitMessagePattern: TEST-[0-9]+
           tagMap: |
             test~>dev
             live~>master
@@ -26,11 +27,3 @@ jobs:
       - name: get commit message
         run: |
           echo ::set-env name=COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{ github.event.after }})
-      - name: show commit message
-        run: echo $COMMIT_MESSAGE
-      - name: Test pattern
-        if: startsWith(env.COMMIT_MESSAGE, 'TEST')
-        run: echo "Found Test ID"
-      - name: match it
-        if: env.COMMIT_MESSAGE == 'TEST-\d+'
-        run: echo "Found Test ID with regex"
