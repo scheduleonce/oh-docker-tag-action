@@ -1,16 +1,13 @@
-import { setOutput, getInput, setFailed } from '@actions/core';
+import { setOutput, getInput, setFailed, warning } from '@actions/core';
 import { execSync, exec } from 'child_process';
 export async function run() {
   try {
-    let pullId = process.env.PR_NUMBER;
+    let pullId = process.env.PR_NUMBER
+      ? process.env.PR_NUMBER
+      : setPullId(getInput('pullId'));
+    checkCommitMessage(process.env.COMMIT_MESSAGE);
     let environment = getEnvironment(process.env.GITHUB_BASE_REF);
     let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
-    if (getInput('pullId')) {
-      pullId = getInput('pullId');
-    } else if (!pullId) {
-      setFailed('No Pull Id Found, Please Provide a Pull Id');
-    }
-    setOutput('pullId', pullId);
     let dockerServer = await loginDocker();
     let imageName = `${dockerServer}/kubernetes/${repoName}:${environment}`;
     await changeLatestToPrevious(imageName);
@@ -19,6 +16,32 @@ export async function run() {
   } catch (error) {
     setFailed(error.message);
     throw error;
+  }
+}
+
+function checkCommitMessage(commitMessage: string) {
+  if (!commitMessage) {
+    warning('Please add commit messages to your commits');
+    return;
+  }
+  const commitMessagePattern = getInput('commitMessagePattern');
+  if (commitMessagePattern) {
+    const regex = new RegExp(commitMessagePattern, 'i');
+    if (!regex.test(commitMessage)) {
+      warning(
+        'Your commit message must match the following regex: ' +
+          commitMessagePattern
+      );
+    }
+  }
+}
+
+function setPullId(pullId) {
+  if (!pullId) {
+    setFailed('No Pull Id Found, Please Provide a Pull Id');
+  } else {
+    setOutput('pullId', pullId);
+    return pullId;
   }
 }
 

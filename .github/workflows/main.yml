@@ -29,8 +29,8 @@ jobs:
       - name: show commit message
         run: echo $COMMIT_MESSAGE
       - name: Test pattern
-        if: startsWith(env.commitmsg, 'TEST')
+        if: startsWith(env.COMMIT_MESSAGE, 'TEST')
         run: echo "Found Test ID"
       - name: match it
-        if: env.commitmsg == 'TEST-\d+'
+        if: env.COMMIT_MESSAGE == 'TEST-\d+'
         run: echo "Found Test ID with regex"
