@@ -1,4 +1,4 @@
-name: oh-docker-tags-action
+name: oh-docker-tags-action-test
 
 on: push
 
