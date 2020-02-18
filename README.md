@@ -5,6 +5,9 @@
 ## Usage:
 
 ```
+- name: Set GitHub Commit Message
+  run: |
+    echo ::set-env name=COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{ github.event.after }})
 - name: oh-docker-tag-action
   uses: scheduleonce/oh-docker-tag-action@<current version>
   env:
@@ -16,6 +19,8 @@
   password: ${{ Docker Password }}
   imageTag: tag name for the docker image (optional)
   pullId: pull Id to be used as a tag name for docker image (optional)
+  commitMessagePattern: It is to be used for check commit messages have proper information or not (optional)
+    TEST/[0-9]*
   tagMap: |
     pattern in branch name to be replaced~>string it is replaced with when tagging (optional)
     test/~>dev
@@ -26,6 +31,7 @@
 - password: Your docker password
 - imageTag: Tag to be used for creating image tags ( Creates a image with the tag without replacement )
 - pullId: Pull Id to be used for creating image tags ( Creates a image with the pull Id without replacement )
+- commitMessagePattern: It is to be used for check commit messages have proper information or not (optional)
 - tagMap: Mapping to be used for creating image tags with replacement
   Example:
   ```

@@ -14,6 +14,8 @@ inputs:
     description: 'Tag to be used for creating image tags (optional)'
   pullId:
     description: 'Pull Id to be used for creating image tags (optional)'
+  commitMessagePattern:
+    description: 'It is to be used for check commit messages have proper information or not (optional)'
 outputs:
   environmentName: # id of the output
     description: 'Current Environment Name'
