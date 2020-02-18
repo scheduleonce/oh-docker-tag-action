@@ -12,7 +12,6 @@ jobs:
         uses: scheduleonce/oh-docker-tag-action@1.0.4
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        if: github.event.pull_request.merged == true
         id: test
         with:
           branchName: $ {{GITHUB_REF}}
