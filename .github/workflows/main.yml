@@ -35,5 +35,5 @@ jobs:
         if: startsWith(env.commitmsg, 'test-[0-9]*')
         run: echo "Found Test ID"
       - name: match it
-        if env.commitmsg == 'TEST-[0-9]*'
+        if: env.commitmsg == 'TEST-[0-9]*'
         run: echo "Found Test ID with regex"
