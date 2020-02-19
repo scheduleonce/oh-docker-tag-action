@@ -14,16 +14,12 @@ const child_process_1 = require("child_process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let pullId = process.env.PR_NUMBER;
+            let pullId = process.env.PR_NUMBER
+                ? process.env.PR_NUMBER
+                : setPullId(core_1.getInput('pullId'));
+            checkCommitMessage(process.env.COMMIT_MESSAGE);
             let environment = getEnvironment(process.env.GITHUB_BASE_REF);
             let repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
-            if (core_1.getInput('pullId')) {
-                pullId = core_1.getInput('pullId');
-            }
-            else if (!pullId) {
-                core_1.setFailed('No Pull Id Found, Please Provide a Pull Id');
-            }
-            core_1.setOutput('pullId', pullId);
             let dockerServer = yield loginDocker();
             let imageName = `${dockerServer}/kubernetes/${repoName}:${environment}`;
             yield changeLatestToPrevious(imageName);
@@ -37,6 +33,29 @@ function run() {
     });
 }
 exports.run = run;
+function checkCommitMessage(commitMessage) {
+    if (!commitMessage) {
+        console.error('Please add commit messages to your commits');
+        return;
+    }
+    const commitMessagePattern = core_1.getInput('commitMessagePattern');
+    if (commitMessagePattern) {
+        const regex = new RegExp(commitMessagePattern, 'i');
+        if (!regex.test(commitMessage)) {
+            console.error('Your commit message must match the following regex: ' +
+                commitMessagePattern);
+        }
+    }
+}
+function setPullId(pullId) {
+    if (!pullId) {
+        core_1.setFailed('No Pull Id Found, Please Provide a Pull Id');
+    }
+    else {
+        core_1.setOutput('pullId', pullId);
+        return pullId;
+    }
+}
 function getEnvironment(branchName) {
     const tagMap = core_1.getInput('tagMap');
     const tags = tagMap.split('\n');

@@ -8,6 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: get commit message
+        run: |
+          echo ::set-env name=COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{ github.event.after }})
+          echo $COMMIT_MESSAGE
       - name: Docker Build And Push Image
         uses: scheduleonce/oh-docker-tag-action@1.0.4
         env:
@@ -25,7 +29,3 @@ jobs:
             test~>dev
             live~>master
             special/~>
-      - name: get commit message
-        run: |
-          echo ::set-env name=COMMIT_MESSAGE::$(git log --format=%B -n 1 ${{ github.event.after }})
-          echo $COMMIT_MESSAGE

@@ -21,14 +21,14 @@ export async function run() {
 
 function checkCommitMessage(commitMessage: string) {
   if (!commitMessage) {
-    warning('Please add commit messages to your commits');
+    console.error('Please add commit messages to your commits');
     return;
   }
   const commitMessagePattern = getInput('commitMessagePattern');
   if (commitMessagePattern) {
     const regex = new RegExp(commitMessagePattern, 'i');
     if (!regex.test(commitMessage)) {
-      warning(
+      console.error(
         'Your commit message must match the following regex: ' +
           commitMessagePattern
       );
