@@ -43,8 +43,8 @@ function checkCommitMessage(commitMessage) {
     if (commitMessagePattern) {
         const regex = new RegExp(commitMessagePattern, 'i');
         if (!regex.test(commitMessage)) {
-            console.error(ansi_colors_1.red('Your commit message must match the following regex: ' +
-                commitMessagePattern));
+            console.error(ansi_colors_1.bold(ansi_colors_1.red('Your commit message must match the following regex: ' +
+                commitMessagePattern)));
         }
     }
 }
