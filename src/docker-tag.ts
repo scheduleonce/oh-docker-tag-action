@@ -30,11 +30,9 @@ function checkCommitMessage(commitMessage: string) {
     const regex = new RegExp(commitMessagePattern, 'i');
     if (!regex.test(commitMessage)) {
       console.error(
-        bold(
-          red(
-            'Your commit message must match the following regex: ' +
-              commitMessagePattern
-          )
+        red(
+          'Your commit message must match the following regex: ' +
+            commitMessagePattern
         )
       );
     }
