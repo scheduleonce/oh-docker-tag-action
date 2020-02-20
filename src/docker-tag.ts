@@ -1,5 +1,6 @@
 import { setOutput, getInput, setFailed, warning } from '@actions/core';
 import { execSync, exec } from 'child_process';
+import { bold, red } from 'ansi-colors';
 export async function run() {
   try {
     let pullId = process.env.PR_NUMBER
@@ -21,7 +22,7 @@ export async function run() {
 
 function checkCommitMessage(commitMessage: string) {
   if (!commitMessage) {
-    console.error('Please add commit messages to your commits');
+    console.error(bold(red('Please add commit messages to your commits')));
     return;
   }
   const commitMessagePattern = getInput('commitMessagePattern');
@@ -29,8 +30,10 @@ function checkCommitMessage(commitMessage: string) {
     const regex = new RegExp(commitMessagePattern, 'i');
     if (!regex.test(commitMessage)) {
       console.error(
-        'Your commit message must match the following regex: ' +
-          commitMessagePattern
+        red(
+          'Your commit message must match the following regex: ' +
+            commitMessagePattern
+        )
       );
     }
   }
