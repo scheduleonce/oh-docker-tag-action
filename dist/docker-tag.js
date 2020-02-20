@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@actions/core");
 const child_process_1 = require("child_process");
+const ansi_colors_1 = require("ansi-colors");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -35,15 +36,15 @@ function run() {
 exports.run = run;
 function checkCommitMessage(commitMessage) {
     if (!commitMessage) {
-        console.error('Please add commit messages to your commits');
+        console.error(ansi_colors_1.bold(ansi_colors_1.red('Please add commit messages to your commits')));
         return;
     }
     const commitMessagePattern = core_1.getInput('commitMessagePattern');
     if (commitMessagePattern) {
         const regex = new RegExp(commitMessagePattern, 'i');
         if (!regex.test(commitMessage)) {
-            console.error('Your commit message must match the following regex: ' +
-                commitMessagePattern);
+            console.error(ansi_colors_1.bold(ansi_colors_1.red('Your commit message must match the following regex: ' +
+                commitMessagePattern)));
         }
     }
 }
