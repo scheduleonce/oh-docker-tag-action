@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = void 0;
 const core_1 = require("@actions/core");
 const child_process_1 = require("child_process");
 const ansi_colors_1 = require("ansi-colors");
