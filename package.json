@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
+    "@actions/github": "^2.0.0",
     "ansi-colors": "^4.1.1",
     "child_process": "^1.0.2",
     "tslint": "^6.1.3"
