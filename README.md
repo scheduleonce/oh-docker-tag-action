@@ -52,3 +52,4 @@
 ### For Contributors
 
 - Please follow and fully understand this link before making changes (https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-javascript-action)
+- Commit all source code including dependencies like node_modules to branch for release (https://github.com/marketplace/actions/release-github-actions#motivation)
